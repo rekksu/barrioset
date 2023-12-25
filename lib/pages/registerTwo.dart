@@ -8,7 +8,18 @@ import 'package:barrio/pages/registerThree.dart';
 
 
 class RegisterTwo extends StatelessWidget {
-   RegisterTwo ({super.key});
+   RegisterTwo ({super.key, required this.firstname, required this.lastname, required this.midname, required this.age, required this.gender, required this.housenum, required this.street, required this.barangay, required this.city});
+  final String firstname;
+  final String lastname;
+  final String midname;
+  final String age;
+  final String gender;
+
+  final String housenum;
+  final String street;
+  final String barangay;
+  final String city;
+
 
   void goRegister(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
@@ -29,7 +40,7 @@ class RegisterTwo extends StatelessWidget {
   void goRegisterTwo(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return  RegisterTwo();
+        return  RegisterTwo(firstname: '', lastname: '', midname: '', age: '', gender: '', housenum: '', street: '', barangay: '', city: '',);
       },
     ));
   }
@@ -37,7 +48,7 @@ class RegisterTwo extends StatelessWidget {
 void goRegisterThree(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return RegisterThree();
+        return RegisterThree(firstname: '', lastname: '', midname: '', age: '', gender: '', housenum: '', street: '', barangay: '', city: '', phonenum: '', email: '',);
       },
     ));
   }
@@ -47,6 +58,16 @@ void goRegisterThree(BuildContext context) {
   Widget build(BuildContext context) {
     final _phonenum = new TextEditingController();
     final _email = new TextEditingController();
+    print(firstname);
+    print(lastname);
+    print(midname);
+    print(age);
+    print(gender);
+
+    print(housenum);
+    print(street);
+    print(barangay);
+    print(city);
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -112,7 +133,42 @@ void goRegisterThree(BuildContext context) {
 
                 const SizedBox(height: 80),
 
-                Row(
+                ElevatedButton(
+                  onPressed: () {               
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => RegisterThree(
+                              firstname: firstname,
+                              lastname: lastname,
+                              midname: midname,
+                              age: age,
+                              gender: gender,
+
+                              housenum: housenum,
+                              street: street,
+                              barangay: barangay,
+                              city: city,
+
+                              phonenum: _phonenum.text,
+                              email: _email.text,
+                            )));
+                  },
+                  child: Text(
+                    "Next",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 65, vertical: 17),
+                    backgroundColor: Color(0xFF0D1282),
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                ),
+
+               /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -130,7 +186,7 @@ void goRegisterThree(BuildContext context) {
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ],
-              ),
+              ),*/
               ],
             ),
           ),
