@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "811061855391",
+    "project_id": "barriodb",
+    "storage_bucket": "barriodb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811061855391:android:5bab4ccfc77104c57eceaa",
+        "android_client_info": {
+          "package_name": "com.example.barrio"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMnbervpWn0ooJirtEMwyK16D840bAuxU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
