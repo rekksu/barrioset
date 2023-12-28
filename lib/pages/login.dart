@@ -1,9 +1,12 @@
+import 'package:barrio/pages/register.dart';
+import 'package:barrio/pages/registerThree.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:barrio/components/buttons.dart';
 import 'package:barrio/components/textbox.dart';
 import 'package:barrio/components/logo.dart';
+import 'package:barrio/pages/registerThree.dart';
 import 'admin.dart';
 import 'resident.dart';
 
@@ -26,6 +29,15 @@ class _LoginState extends State<Login> {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return Login();
+      },
+    ));
+  }
+
+//for Dont have an Acc
+  void gotoRegister(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return Register();
       },
     ));
   }
@@ -176,6 +188,13 @@ class _LoginState extends State<Login> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                   ),
+                ),
+
+                //for Dont have an Acc
+                RegAcc(
+                  onTap: () {
+                    gotoRegister(context);
+                  },
                 ),
 
                 /*Row(

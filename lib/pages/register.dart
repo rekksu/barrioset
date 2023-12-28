@@ -59,14 +59,6 @@ class Register extends StatelessWidget {
                   image: 'lib/images/logo.png',
                   height: 50,
                 ),
-
-                //Back Button
-                BackButt(
-                  onTap: () {
-                    goFourthPage(context);
-                  },
-                ),
-
                 SizedBox(height: 70),
 
                 //Registration Text

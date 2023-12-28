@@ -6,6 +6,7 @@ import 'package:barrio/components/logo.dart';
 import 'package:barrio/pages/SecondPage.dart';
 import 'package:barrio/pages/firstPage.dart';
 import 'package:barrio/pages/fourthPage.dart';
+import 'package:barrio/pages/login.dart';
 
 class ThirdPage extends StatelessWidget {
   const ThirdPage({
@@ -36,7 +37,7 @@ class ThirdPage extends StatelessWidget {
     ));
   }
 
-   void goFourthPage(BuildContext context) {
+  void goFourthPage(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return const fourthPage();
@@ -44,7 +45,14 @@ class ThirdPage extends StatelessWidget {
     ));
   }
 
-  
+//for Already have an account
+  void gotoLogin(BuildContext context) {
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) {
+        return Login();
+      },
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,112 +61,121 @@ class ThirdPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: SingleChildScrollView(
-          child: Column(
-            children: [
-              //For Spacing
-              const SizedBox(height: 5),
+            child: Column(
+              children: [
+                //For Spacing
+                const SizedBox(height: 5),
 
-              Logo(image: 'lib/images/logo.png', height: 50,),
+                Logo(
+                  image: 'lib/images/logo.png',
+                  height: 50,
+                ),
 
                 //Skip Button
-                  SkipButt(
-                    onTap: () {
-                      goFourthPage(context);
-                    },
-                  ),
+                SkipButt(
+                  onTap: () {
+                    goFourthPage(context);
+                  },
+                ),
 
-               const SizedBox(height: 15),         
+                const SizedBox(height: 15),
 
-              //Image
-              TopImage(topimage: 'lib/images/third.png', height: 230,),
+                //Image
+                TopImage(
+                  topimage: 'lib/images/third.png',
+                  height: 230,
+                ),
 
+                //For Spacing
+                const SizedBox(height: 60),
 
-              //For Spacing
-              const SizedBox(height: 60),
-
-              //Below Child Text
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 50),
-                child: Text(
-                  'Provide feedback and offer suggestions to your barangay officials.', //eme lang to pakipalitan 
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
+                //Below Child Text
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Provide feedback and offer suggestions to your barangay officials.', //eme lang to pakipalitan
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
 
-              //For Spacing
-              const SizedBox(height: 200),
+                //For Spacing
+                const SizedBox(height: 195),
 
-              //Navigation Dots
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Dots(
-                    color: Color.fromARGB(255, 136, 137, 138),
-                    borderRadius: BorderRadius.circular(8),
-                    edgeInsets:
-                        EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                  ),
-                  //For Spacing
-                  const SizedBox(width: 5),
-                  Dots(
-                    onTap: () {
-                      goSecondPage(context);
-                    },
-                    color: Color.fromARGB(255, 136, 137, 138),
-                    borderRadius: BorderRadius.circular(8),
-                    edgeInsets:
-                        EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                  ),
-                  //For Spacing
-                  const SizedBox(width: 5),
-                  Dots(
-                    color: Color.fromARGB(255, 0, 0, 0),
-                    borderRadius: BorderRadius.circular(8),
-                    edgeInsets:
-                        EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                  ),
-                  const SizedBox(width: 5),
-                  Dots(
-                    onTap: () {
-                      goFourthPage(context);
-                    },
-                    color: Color.fromARGB(255, 136, 137, 138),
-                    borderRadius: BorderRadius.circular(8),
-                    edgeInsets:
-                        EdgeInsets.symmetric(horizontal: 6, vertical: 6),
-                  ),
-                ],
-              ),
-
-              //For Spacing
-              const SizedBox(height: 20),
-
-             //Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-               crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  
-                  //For Spacing
-                  const SizedBox(width: 5),
-
-                  //Next Button
-                  NextButt(
-                    
-                    onTap: () {
-                      goFourthPage(context);
-                    },
-                    text: 'Next',
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+                //Navigation Dots
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Dots(
+                      color: Color.fromARGB(255, 136, 137, 138),
+                      borderRadius: BorderRadius.circular(8),
+                      edgeInsets:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                    ),
+                    //For Spacing
+                    const SizedBox(width: 5),
+                    Dots(
+                      onTap: () {
+                        goSecondPage(context);
+                      },
+                      color: Color.fromARGB(255, 136, 137, 138),
+                      borderRadius: BorderRadius.circular(8),
+                      edgeInsets:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                    ),
+                    //For Spacing
+                    const SizedBox(width: 5),
+                    Dots(
+                      color: Color.fromARGB(255, 0, 0, 0),
+                      borderRadius: BorderRadius.circular(8),
+                      edgeInsets:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                    ),
+                    const SizedBox(width: 5),
+                    Dots(
+                      onTap: () {
+                        goFourthPage(context);
+                      },
+                      color: Color.fromARGB(255, 136, 137, 138),
+                      borderRadius: BorderRadius.circular(8),
+                      edgeInsets:
+                          EdgeInsets.symmetric(horizontal: 6, vertical: 6),
+                    ),
                   ],
-              ),
-            ],
-          ),
+                ),
+
+                //For Spacing
+                const SizedBox(height: 10),
+
+                //Buttons
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    //For Spacing
+                    const SizedBox(width: 2),
+
+                    //Next Button
+                    NextButt(
+                      onTap: () {
+                        goFourthPage(context);
+                      },
+                      text: 'Next',
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ],
+                ),
+                //for Already have an account
+                LoginAcc(
+                  onTap: () {
+                    gotoLogin(context);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
