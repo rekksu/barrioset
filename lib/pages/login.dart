@@ -13,6 +13,7 @@ import 'resident.dart';
 final _formkey = GlobalKey<FormState>();
 
 final _auth = FirebaseAuth.instance;
+bool _isObscure3 = true;
 
 final _email = new TextEditingController();
 final _password = new TextEditingController();
@@ -131,8 +132,18 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25),
                   child: TextFormField(
+                    obscureText: _isObscure3,
                     controller: _password,
                     decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                                icon: Icon(_isObscure3
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
+                                onPressed: () {
+                                  setState(() {
+                                    _isObscure3 = !_isObscure3;
+                                  });
+                                }),
                       helperText: ' ',
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
