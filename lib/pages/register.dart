@@ -136,45 +136,7 @@ class Register extends StatelessWidget {
                 ),
                 //const SizedBox(height: 10),
 
-                // Lastname txtfield
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 25),
-                  child: TextFormField(
-                    controller: _lname,
-                    decoration: InputDecoration(
-                       helperText: ' ',
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Color.fromARGB(255, 199, 199, 199),
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide:
-                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      hintText: 'Last Name',
-                      hintStyle: const TextStyle(
-                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please Input Last name';
-                      } else {
-                        return null;
-                      }
-                    },
-                    inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),       
-                    ],
-                  ),
-                ),
-              // const SizedBox(height: 10),
-
-                // MiddleName txtfield
+                 // MiddleName txtfield
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25),
                   child: TextFormField(
@@ -211,6 +173,44 @@ class Register extends StatelessWidget {
                   ),
                 ),
                // const SizedBox(height: 10),
+
+                // Lastname txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _lname,
+                    decoration: InputDecoration(
+                       helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Last Name',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input Last name';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),       
+                    ],
+                  ),
+                ),
+              // const SizedBox(height: 10),            
 
                 // Age txtfield
                 Padding(

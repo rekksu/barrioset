@@ -194,7 +194,7 @@ class RegisterOne extends StatelessWidget {
                       }
                     },
                     inputFormatters: <TextInputFormatter>[
-                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),                                  
+                      FilteringTextInputFormatter.allow(RegExp("[0-9 a-z A-Z]")),                                  
                     ],
                   ),
                 ),
