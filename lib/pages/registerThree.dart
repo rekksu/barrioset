@@ -9,6 +9,9 @@ import 'package:barrio/pages/register.dart';
 import 'package:barrio/pages/registerOne.dart';
 import 'package:barrio/pages/registerTwo.dart';
 import 'package:barrio/pages/accountCreated.dart';
+import 'package:flutter/services.dart';
+
+final _formkey = GlobalKey<FormState>();
 
 final _auth = FirebaseAuth.instance;
 final _username = new TextEditingController();
@@ -113,7 +116,6 @@ class RegisterThree extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     String role = 'resident';
 
     print(firstname);
@@ -131,7 +133,8 @@ class RegisterThree extends StatelessWidget {
     print(email);
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Form(
+          key: _formkey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -178,41 +181,142 @@ class RegisterThree extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                TextBox(
-                  controller: _username,
-                  hintText: 'Username',
+                // Username txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _username,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Username',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Username cannot be empty';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(
+                          RegExp("[0-9 a-z A-Z]")),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                TextBox(
-                  controller: _password,
-                  hintText: 'Password',
+                //const SizedBox(height: 10),
+
+                // Password txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _password,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Password',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      RegExp regex = new RegExp(r'^.{6,}$');
+                      if (value!.isEmpty) {
+                        return 'Password cannot be empty';
+                      }
+                      if (!regex.hasMatch(value)) {
+                        return ("Please enter valid password min. 6 character");
+                      } else {
+                        return null;
+                      }
+                    },                   
+                  ),
                 ),
-                const SizedBox(height: 10),
-                TextBox(
-                  controller: _confirmpass,
-                  hintText: 'Re-type Password',
+                //const SizedBox(height: 10),
+
+                 // Confirm Password txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _confirmpass,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Confirm Password',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),               
+                     validator: (value) {
+                            if (_confirmpass.text !=
+                                _password.text) {
+                              return "Password did not match";
+                            } else {
+                              return null;
+                            }
+                          },
+                  ),
                 ),
+                //const SizedBox(height: 10),
+
                 const SizedBox(height: 10),
 
-                const SizedBox(height: 80),
+                const SizedBox(height: 200),
 
                 ElevatedButton(
                   onPressed: () {
-                    register(email, _password.text, role);
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AccountCreated(                            
-                            )));
+                    if (_formkey.currentState!.validate()) {
+                      register(email, _password.text, role);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AccountCreated()));
+                    }
                   },
                   child: Text(
                     "Next",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 65, vertical: 17),
+                        horizontal: 120, vertical: 17),
                     backgroundColor: Color(0xFF0D1282),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
@@ -259,24 +363,20 @@ class RegisterThree extends StatelessWidget {
     var user = _auth.currentUser;
     CollectionReference ref = FirebaseFirestore.instance.collection('users');
     ref.doc(user!.uid).set({
-      'firstname': firstname,
-      'lastname': lastname,
-      'middlename': midname,
+      'firstname': firstname.capitalize(),
+      'lastname': lastname.capitalize(),
+      'middlename': midname.capitalize(),
       'age': age,
       'gender': gender,
-
       'housenumber': housenum,
-      'street': street,
-      'barangay': barangay,
-      'city': city,
-
+      'street': street.capitalize(),
+      'barangay': barangay.capitalize(),
+      'city': city.capitalize(),
       'phonenumber': phonenum,
       'email': email,
       'role': role,
-      
       'username': _username.text,
       'password': _password.text
-
-      });
+    });
   }
 }

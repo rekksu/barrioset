@@ -7,6 +7,8 @@ import 'package:barrio/components/logo.dart';
 import 'admin.dart';
 import 'resident.dart';
 
+final _formkey = GlobalKey<FormState>();
+
 final _auth = FirebaseAuth.instance;
 
 final _email = new TextEditingController();
@@ -33,7 +35,8 @@ class _LoginState extends State<Login> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Form(
+          key: _formkey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -73,22 +76,92 @@ class _LoginState extends State<Login> {
 
                 const SizedBox(height: 20),
 
-                TextBox(
-                  controller: _email,
-                  hintText: 'Email',
+                // Email txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _email,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Email',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Email cannot be empty';
+                      }
+                      if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return ("Please enter a valid email");
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
-                const SizedBox(height: 10),
-                TextBox(
-                  controller: _password,
-                  hintText: 'Password',
+                // const SizedBox(height: 10),
+
+                // Password txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _password,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Password',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      RegExp regex = new RegExp(r'^.{6,}$');
+                      if (value!.isEmpty) {
+                        return 'Password cannot be empty';
+                      }
+                      if (!regex.hasMatch(value)) {
+                        return ("Please enter valid password min. 6 character");
+                      }                    
+                      else {
+                        return null;
+                      }
+                    },                   
+                  ),
                 ),
-                const SizedBox(height: 10),
+                //const SizedBox(height: 10),
 
                 const SizedBox(height: 20),
 
                 ElevatedButton(
                   onPressed: () {
+                    if (_formkey.currentState!.validate()) { 
                     signIn(_email.text, _password.text);
+                    }
                   },
                   child: Text(
                     "Confirm",

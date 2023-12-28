@@ -5,10 +5,22 @@ import 'package:barrio/components/logo.dart';
 import 'package:barrio/pages/register.dart';
 import 'package:barrio/pages/registerOne.dart';
 import 'package:barrio/pages/registerThree.dart';
+import 'package:flutter/services.dart';
 
+final _formkey = GlobalKey<FormState>();
 
 class RegisterTwo extends StatelessWidget {
-   RegisterTwo ({super.key, required this.firstname, required this.lastname, required this.midname, required this.age, required this.gender, required this.housenum, required this.street, required this.barangay, required this.city});
+  RegisterTwo(
+      {super.key,
+      required this.firstname,
+      required this.lastname,
+      required this.midname,
+      required this.age,
+      required this.gender,
+      required this.housenum,
+      required this.street,
+      required this.barangay,
+      required this.city});
   final String firstname;
   final String lastname;
   final String midname;
@@ -20,11 +32,10 @@ class RegisterTwo extends StatelessWidget {
   final String barangay;
   final String city;
 
-
   void goRegister(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return  Register();
+        return Register();
       },
     ));
   }
@@ -32,7 +43,13 @@ class RegisterTwo extends StatelessWidget {
   void goRegisterOne(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return  RegisterOne(firstname: '', lastname: '', midname: '', age: '', gender: '',);
+        return RegisterOne(
+          firstname: '',
+          lastname: '',
+          midname: '',
+          age: '',
+          gender: '',
+        );
       },
     ));
   }
@@ -40,19 +57,40 @@ class RegisterTwo extends StatelessWidget {
   void goRegisterTwo(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return  RegisterTwo(firstname: '', lastname: '', midname: '', age: '', gender: '', housenum: '', street: '', barangay: '', city: '',);
+        return RegisterTwo(
+          firstname: '',
+          lastname: '',
+          midname: '',
+          age: '',
+          gender: '',
+          housenum: '',
+          street: '',
+          barangay: '',
+          city: '',
+        );
       },
     ));
   }
 
-void goRegisterThree(BuildContext context) {
+  void goRegisterThree(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return RegisterThree(firstname: '', lastname: '', midname: '', age: '', gender: '', housenum: '', street: '', barangay: '', city: '', phonenum: '', email: '',);
+        return RegisterThree(
+          firstname: '',
+          lastname: '',
+          midname: '',
+          age: '',
+          gender: '',
+          housenum: '',
+          street: '',
+          barangay: '',
+          city: '',
+          phonenum: '',
+          email: '',
+        );
       },
     ));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -70,20 +108,23 @@ void goRegisterThree(BuildContext context) {
     print(city);
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Form(
+          key: _formkey,
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Logo(
+                  image: 'lib/images/logo.png',
+                  height: 50,
+                ),
 
-                Logo(image: 'lib/images/logo.png', height: 50,),
-                
-                  //Back Button
-                  BackButt(
-                    onTap: () {
-                      goRegisterOne(context);
-                    },
-                  ),
-                  
+                //Back Button
+                BackButt(
+                  onTap: () {
+                    goRegisterOne(context);
+                  },
+                ),
+
                 SizedBox(height: 100),
 
                 //Registration Text
@@ -94,16 +135,12 @@ void goRegisterThree(BuildContext context) {
                       child: Text(
                         'Contacts',
                         style: TextStyle(
-                          fontSize: 35,
-                          fontWeight: FontWeight.bold
-                        ),
-                        
+                            fontSize: 35, fontWeight: FontWeight.bold),
                       ),
-                     
                     ),
                   ],
                 ),
-                 const Row(
+                const Row(
                   children: [
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 30),
@@ -111,64 +148,134 @@ void goRegisterThree(BuildContext context) {
                         'Kindly fill out all the information to register an account',
                         style: TextStyle(
                           fontSize: 11,
-                          
                         ),
-                        
                       ),
-                     
                     ),
                   ],
                 ),
 
                 const SizedBox(height: 20),
 
-                TextBox(controller: _phonenum, hintText: 'Mobile Number',
-                 ),
-                const SizedBox(height: 10),
-                TextBox(controller: _email, hintText: 'Email', 
+                // PhoneNum txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _phonenum,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Phone Number',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Phone number cannot be empty';
+                      }
+                      if (value!.length == 11) {
+                        return null;
+                      } else {
+                        return 'Phone number must contain 11 numbers';
+                      }
+                    },
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(11),
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-              
-          
+                // const SizedBox(height: 10),
 
-                const SizedBox(height: 80),
+                // Email txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _email,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Email Address',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Email cannot be empty';
+                      }
+                      if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(value)) {
+                        return ("Please enter a valid email");
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+                // const SizedBox(height: 10),
+
+                const SizedBox(height: 280),
 
                 ElevatedButton(
-                  onPressed: () {               
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RegisterThree(
-                              firstname: firstname,
-                              lastname: lastname,
-                              midname: midname,
-                              age: age,
-                              gender: gender,
-
-                              housenum: housenum,
-                              street: street,
-                              barangay: barangay,
-                              city: city,
-
-                              phonenum: _phonenum.text,
-                              email: _email.text,
-                            )));
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RegisterThree(
+                                firstname: firstname.capitalize(),
+                                lastname: lastname.capitalize(),
+                                midname: midname.capitalize(),
+                                age: age,
+                                gender: gender,
+                                housenum: housenum,
+                                street: street.capitalize(),
+                                barangay: barangay.capitalize(),
+                                city: city.capitalize(),
+                                phonenum: _phonenum.text,
+                                email: _email.text,
+                              )));
+                    }
                   },
                   child: Text(
                     "Next",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 65, vertical: 17),
+                        horizontal: 120, vertical: 17),
                     backgroundColor: Color(0xFF0D1282),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
 
-               /* Row(
+                /* Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

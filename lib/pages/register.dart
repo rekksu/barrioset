@@ -1,14 +1,23 @@
+// ignore_for_file: prefer_const_constructors, sort_child_properties_last
+
 import 'package:flutter/material.dart';
 import 'package:barrio/components/buttons.dart';
-import 'package:barrio/components/textbox.dart';
 import 'package:barrio/components/logo.dart';
 import 'package:barrio/pages/registerOne.dart';
 import 'package:barrio/pages/fourthPage.dart';
+import 'package:flutter/services.dart';
 
 final _formkey = GlobalKey<FormState>();
 
 class Register extends StatelessWidget {
   Register({super.key});
+
+  var gender = [
+    'Male',
+    'Female',
+  ];
+
+  var valueChoose;
 
   void goFourthPage(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
@@ -41,7 +50,8 @@ class Register extends StatelessWidget {
     final _gender = new TextEditingController();
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Form(
+          key: _formkey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -86,56 +96,239 @@ class Register extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(height: 20),                       
-                TextBox(
+                const SizedBox(height: 20),
+       
+                // FirstName txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
                     controller: _fname,
-                    hintText: 'First Name',
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'First Name',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
                     ),
-                const SizedBox(height: 10),
-                TextBox(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input First name';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),                                                                   
+                    ],
+                  ),
+                ),
+                //const SizedBox(height: 10),
+
+                // Lastname txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
                     controller: _lname,
-                    hintText: 'Last Name',
-                 ),
-                const SizedBox(height: 10),
-                TextBox(
+                    decoration: InputDecoration(
+                       helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Last Name',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input Last name';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),       
+                    ],
+                  ),
+                ),
+              // const SizedBox(height: 10),
+
+                // MiddleName txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
                     controller: _midname,
-                    hintText: 'Middle Name',
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Middle Name',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
                     ),
-                const SizedBox(height: 10),
-                TextBox(
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input Middle name';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),               
+                    ],
+                  ),
+                ),
+               // const SizedBox(height: 10),
+
+                // Age txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
                     controller: _age,
-                    hintText: 'Age',
+                    decoration: InputDecoration(
+                       helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Age',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
                     ),
-                const SizedBox(height: 10),
-                TextBox(
-                    controller: _gender,
-                    hintText: 'Gender',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input Age';
+                      } else {
+                        return null;
+                      }
+                    },
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(2),
+                    ],
+                  ),
+                ),
+               // const SizedBox(height: 10),
+
+                // Gender Dropdown
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: DropdownButtonFormField(
+                    decoration: InputDecoration(
+                       helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Gender',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
                     ),
-                const SizedBox(height: 10),
+                    dropdownColor: Colors.white,
+                    icon: Icon(Icons.arrow_drop_down),
+                    iconSize: 36,
+                    isExpanded: true,
+                    value: valueChoose,
+                    onChanged: (newValue) {
+                      valueChoose = newValue;
+                    },
+                    items: gender.map((valueItem) {
+                      return DropdownMenuItem(
+                        value: valueItem,
+                        child: Text(valueItem),
+                      );
+                    }).toList(),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please Select Gender';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+              // const SizedBox(height: 10),
 
-                const SizedBox(height: 80),
+                const SizedBox(height: 40),
 
+                // Button Next
                 ElevatedButton(
-                  onPressed: () {               
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => RegisterOne(
-                              firstname: _fname.text,
-                              lastname: _lname.text,
-                              midname: _midname.text,
-                              age: _age.text,
-                              gender: _gender.text,
-                            )));
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => RegisterOne(
+                                firstname: _fname.text.capitalize(),
+                                lastname: _lname.text.capitalize(),
+                                midname: _midname.text.capitalize(),
+                                age: _age.text,
+                                gender: valueChoose,
+                              )));
+                      /*ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Processing !!')),
+                      );*/
+                    }
                   },
                   child: Text(
                     "Next",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 65, vertical: 17),
+                        horizontal: 120, vertical: 17),
                     backgroundColor: Color(0xFF0D1282),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
@@ -165,5 +358,23 @@ class Register extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.capitalize(),
+      selection: newValue.selection,
+    );
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+     return 
+       "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }

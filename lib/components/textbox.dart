@@ -14,7 +14,7 @@ class TextBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 25),
-      child: TextFormField(
+      child: TextField(
         controller: controller,
          decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(

@@ -4,6 +4,9 @@ import 'package:barrio/components/textbox.dart';
 import 'package:barrio/components/logo.dart';
 import 'package:barrio/pages/register.dart';
 import 'package:barrio/pages/registerTwo.dart';
+import 'package:flutter/services.dart';
+
+final _formkey = GlobalKey<FormState>();
 
 class RegisterOne extends StatelessWidget {
   RegisterOne(
@@ -44,7 +47,17 @@ class RegisterOne extends StatelessWidget {
   void goRegisterTwo(BuildContext context) {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
-        return RegisterTwo(firstname: '', lastname: '', midname: '', age: '', gender: '', housenum: '', street: '', barangay: '', city: '',);
+        return RegisterTwo(
+          firstname: '',
+          lastname: '',
+          midname: '',
+          age: '',
+          gender: '',
+          housenum: '',
+          street: '',
+          barangay: '',
+          city: '',
+        );
       },
     ));
   }
@@ -63,7 +76,8 @@ class RegisterOne extends StatelessWidget {
     print(gender);
     return Scaffold(
       body: SafeArea(
-        child: Center(
+        child: Form(
+          key: _formkey,
           child: SingleChildScrollView(
             child: Column(
               children: [
@@ -110,62 +124,193 @@ class RegisterOne extends StatelessWidget {
 
                 const SizedBox(height: 20),
 
-                TextBox(
-                  controller: _housenum,
-                  hintText: 'House Number',
+                // House Number txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _housenum,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'House Number',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input House Number Address';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[# 0-9 a-z A-Z]")),                                       
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                TextBox(
-                  controller: _street,
-                  hintText: 'Street',
+                //const SizedBox(height: 10),
+
+                // Street txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _street,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Street',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input Street Address';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),                                  
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                TextBox(
-                  controller: _barangay,
-                  hintText: 'Barangay',
+                //const SizedBox(height: 10),
+
+                // Barangay txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _barangay,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'Barangay',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input Barangay Address';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),                                                   
+                    ],
+                  ),
                 ),
-                const SizedBox(height: 10),
-                TextBox(
-                  controller: _city,
-                  hintText: 'City',
+                //const SizedBox(height: 10),
+
+                // City txtfield
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: TextFormField(
+                    controller: _city,
+                    decoration: InputDecoration(
+                      helperText: ' ',
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Color.fromARGB(255, 199, 199, 199),
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Color.fromARGB(255, 46, 44, 44)),
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      hintText: 'City',
+                      hintStyle: const TextStyle(
+                          fontSize: 20.0, color: Color(0xFFB9B9B9)),
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please Input City Address';
+                      } else {
+                        return null;
+                      }
+                    },
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.allow(RegExp("[a-z A-Z]")),                                                        
+                    ],
+                  ),
                 ),
+                //const SizedBox(height: 10),
                 const SizedBox(height: 10),
 
-                const SizedBox(height: 80),
-
-                 ElevatedButton(
-                  onPressed: () {               
-                    Navigator.of(context).push(MaterialPageRoute(
+                // Next Button 
+                const SizedBox(height: 90),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formkey.currentState!.validate()) {
+                        Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => RegisterTwo(
-                              firstname: firstname,
-                              lastname: lastname,
-                              midname: midname,
+                              firstname: firstname.capitalize(),
+                              lastname: lastname.capitalize(),
+                              midname: midname.capitalize(),
                               age: age,
                               gender: gender,
-
                               housenum: _housenum.text,
-                              street: _street.text,
-                              barangay: _barangay.text,
-                              city: _city.text,
+                              street: _street.text.capitalize(),
+                              barangay: _barangay.text.capitalize(),
+                              city: _city.text.capitalize(),
                             )));
+                    }                 
                   },
                   child: Text(
                     "Next",
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.bold),
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 65, vertical: 17),
+                        horizontal: 120, vertical: 17),
                     backgroundColor: Color(0xFF0D1282),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
                   ),
                 ),
-
-
 
                 /*Row(
                   mainAxisAlignment: MainAxisAlignment.center,
