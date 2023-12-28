@@ -170,8 +170,10 @@ class _LoginState extends State<Login> {
 
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {
+                    if (_formkey.currentState!.validate()) {                 
                       signIn(_email.text, _password.text);
+                      _email.clear();
+                      _password.clear();
                     }
                   },
                   child: Text(
