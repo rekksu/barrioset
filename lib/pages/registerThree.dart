@@ -304,11 +304,8 @@ class RegisterThree extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     if (_formkey.currentState!.validate()) {   
-                      register(email, _password.text, role);              
-                      if(auth.currentUser != null){
-                     Navigator.push(context, MaterialPageRoute(builder: (ctx)=>const EmailVerificationScreen()));                   
-                   }
-                      
+                      register(email, _password.text, role);                     
+                     Navigator.push(context, MaterialPageRoute(builder: (ctx)=>const EmailVerificationScreen()));                                                         
                     }
                   },
                   child: Text(

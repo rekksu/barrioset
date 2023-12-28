@@ -8,7 +8,6 @@ import 'package:firebase_core/firebase_core.dart';
 
 final Future<FirebaseApp> firebaseInitialization = Firebase.initializeApp();
 FirebaseAuth auth = FirebaseAuth.instance;
-//final _auth = FirebaseAuth.instance;
 
 class EmailVerificationScreen extends StatefulWidget {
   const EmailVerificationScreen({Key? key}) : super(key: key);
@@ -43,8 +42,8 @@ class _EmailVerificationScreenState extends State<EmailVerificationScreen> {
           .showSnackBar(SnackBar(content: Text("Email Successfully Verified")));
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => Login()));
-          //var user = _auth.currentUser;
-          FirebaseFirestore.instance.collection('users').doc(auth.currentUser?.uid).update({'verified': 'yes'});
+          //var user = auth.currentUser;
+          FirebaseFirestore.instance.collection('users').doc(auth.currentUser!.uid).update({'verified': 'yes'});
       timer?.cancel();
     }
   }
