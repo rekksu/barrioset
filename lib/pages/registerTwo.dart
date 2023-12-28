@@ -44,11 +44,11 @@ class RegisterTwo extends StatelessWidget {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return RegisterOne(
-          firstname: '',
-          lastname: '',
-          midname: '',
-          age: '',
-          gender: '',
+          firstname: firstname,
+          lastname: lastname,
+          midname: midname,
+          age: age,
+          gender: gender,
         );
       },
     ));
@@ -183,11 +183,12 @@ class RegisterTwo extends StatelessWidget {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Phone number cannot be empty';
-                      }
-                      if (value!.length == 11) {
-                        return null;
+                      }  
+                      if (!RegExp("^(09)\\d{9}")
+                          .hasMatch(value)) {
+                        return 'Phone number must be valid';
                       } else {
-                        return 'Phone number must contain 11 numbers';
+                        return null;
                       }
                     },
                     keyboardType: TextInputType.number,
@@ -268,7 +269,7 @@ class RegisterTwo extends StatelessWidget {
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 120, vertical: 17),
+                        horizontal: 100, vertical: 15),
                     backgroundColor: Color(0xFF0D1282),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),

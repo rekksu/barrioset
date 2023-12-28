@@ -10,6 +10,7 @@ import 'package:barrio/pages/registerOne.dart';
 import 'package:barrio/pages/registerTwo.dart';
 import 'package:barrio/pages/accountCreated.dart';
 import 'package:flutter/services.dart';
+import 'package:email_auth/email_auth.dart';
 
 final _formkey = GlobalKey<FormState>();
 
@@ -58,11 +59,11 @@ class RegisterThree extends StatelessWidget {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return RegisterOne(
-          firstname: '',
-          lastname: '',
-          midname: '',
-          age: '',
-          gender: '',
+          firstname: firstname,
+          lastname: lastname,
+          midname: midname,
+          age: age,
+          gender: gender,
         );
       },
     ));
@@ -72,15 +73,15 @@ class RegisterThree extends StatelessWidget {
     Navigator.push(context, MaterialPageRoute(
       builder: (context) {
         return RegisterTwo(
-          firstname: '',
-          lastname: '',
-          midname: '',
-          age: '',
-          gender: '',
-          housenum: '',
-          street: '',
-          barangay: '',
-          city: '',
+          firstname: firstname,
+          lastname: lastname,
+          midname: midname,
+          age: age,
+          gender: gender,
+          housenum: housenum,
+          street: street,
+          barangay: barangay,
+          city: city,
         );
       },
     ));
@@ -254,12 +255,12 @@ class RegisterThree extends StatelessWidget {
                       } else {
                         return null;
                       }
-                    },                   
+                    },
                   ),
                 ),
                 //const SizedBox(height: 10),
 
-                 // Confirm Password txtfield
+                // Confirm Password txtfield
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25),
                   child: TextFormField(
@@ -282,15 +283,14 @@ class RegisterThree extends StatelessWidget {
                           fontSize: 20.0, color: Color(0xFFB9B9B9)),
                       contentPadding:
                           EdgeInsets.symmetric(vertical: 15.0, horizontal: 20),
-                    ),               
-                     validator: (value) {
-                            if (_confirmpass.text !=
-                                _password.text) {
-                              return "Password did not match";
-                            } else {
-                              return null;
-                            }
-                          },
+                    ),
+                    validator: (value) {
+                      if (_confirmpass.text != _password.text) {
+                        return "Password did not match";
+                      } else {
+                        return null;
+                      }
+                    },
                   ),
                 ),
                 //const SizedBox(height: 10),
@@ -316,7 +316,7 @@ class RegisterThree extends StatelessWidget {
                   ),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 120, vertical: 17),
+                        horizontal: 100, vertical: 15),
                     backgroundColor: Color(0xFF0D1282),
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15)),
