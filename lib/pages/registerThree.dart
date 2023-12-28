@@ -1,3 +1,4 @@
+import 'package:barrio/pages/emailverification.dart';
 import 'package:barrio/pages/login.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,6 +34,7 @@ class RegisterThree extends StatelessWidget {
       required this.city,
       required this.phonenum,
       required this.email});
+      
   final String firstname;
   final String lastname;
   final String midname;
@@ -301,10 +303,12 @@ class RegisterThree extends StatelessWidget {
 
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {
-                      register(email, _password.text, role);
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AccountCreated()));
+                    if (_formkey.currentState!.validate()) {   
+                      register(email, _password.text, role);              
+                      if(auth.currentUser != null){
+                     Navigator.push(context, MaterialPageRoute(builder: (ctx)=>const EmailVerificationScreen()));                   
+                   }
+                      
                     }
                   },
                   child: Text(
@@ -375,8 +379,10 @@ class RegisterThree extends StatelessWidget {
       'phonenumber': phonenum,
       'email': email,
       'role': role,
+      'verified': 'no',
       'username': _username.text,
       'password': _password.text
     });
   }
 }
+

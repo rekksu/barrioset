@@ -15,7 +15,6 @@ final _email = new TextEditingController();
 final _password = new TextEditingController();
 
 class Login extends StatefulWidget {
-
   Login({super.key});
 
   @override
@@ -104,7 +103,8 @@ class _LoginState extends State<Login> {
                       if (value!.isEmpty) {
                         return 'Email cannot be empty';
                       }
-                      if (!RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                      if (!RegExp(
+                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                           .hasMatch(value)) {
                         return ("Please enter a valid email");
                       } else {
@@ -146,11 +146,10 @@ class _LoginState extends State<Login> {
                       }
                       if (!regex.hasMatch(value)) {
                         return ("Please enter valid password min. 6 character");
-                      }                    
-                      else {
+                      } else {
                         return null;
                       }
-                    },                   
+                    },
                   ),
                 ),
                 //const SizedBox(height: 10),
@@ -159,8 +158,8 @@ class _LoginState extends State<Login> {
 
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) { 
-                    signIn(_email.text, _password.text);
+                    if (_formkey.currentState!.validate()) {
+                      signIn(_email.text, _password.text);
                     }
                   },
                   child: Text(
@@ -214,18 +213,22 @@ class _LoginState extends State<Login> {
       if (documentSnapshot.exists) {
         if (documentSnapshot.get('role') == "admin") {
           Navigator.pushReplacement(
-            context, 
+            context,
             MaterialPageRoute(
               builder: (context) => Admin(),
             ),
           );
-        } else {
+        }
+        if (documentSnapshot.get('role') == "resident" &&
+            documentSnapshot.get('verified') == "yes") {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context) => Resident(),
             ),
           );
+        } else {
+          return 'Please Verify Your Email First';
         }
       } else {
         print('Document does not exist on the database');
