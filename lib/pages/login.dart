@@ -1,5 +1,8 @@
+import 'package:barrio/pages/admin.dart';
+import 'package:barrio/pages/emailverification.dart';
 import 'package:barrio/pages/register.dart';
 import 'package:barrio/pages/registerThree.dart';
+import 'package:barrio/pages/resident.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -7,8 +10,6 @@ import 'package:barrio/components/buttons.dart';
 import 'package:barrio/components/textbox.dart';
 import 'package:barrio/components/logo.dart';
 import 'package:barrio/pages/registerThree.dart';
-import 'admin.dart';
-import 'resident.dart';
 
 final _formkey = GlobalKey<FormState>();
 
@@ -136,14 +137,14 @@ class _LoginState extends State<Login> {
                     controller: _password,
                     decoration: InputDecoration(
                       suffixIcon: IconButton(
-                                icon: Icon(_isObscure3
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  setState(() {
-                                    _isObscure3 = !_isObscure3;
-                                  });
-                                }),
+                          icon: Icon(_isObscure3
+                              ? Icons.visibility
+                              : Icons.visibility_off),
+                          onPressed: () {
+                            setState(() {
+                              _isObscure3 = !_isObscure3;
+                            });
+                          }),
                       helperText: ' ',
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
@@ -181,7 +182,7 @@ class _LoginState extends State<Login> {
 
                 ElevatedButton(
                   onPressed: () {
-                    if (_formkey.currentState!.validate()) {                 
+                    if (_formkey.currentState!.validate()) {
                       signIn(_email.text, _password.text);
                       _email.clear();
                       _password.clear();
@@ -250,8 +251,7 @@ class _LoginState extends State<Login> {
               builder: (context) => Admin(),
             ),
           );
-        }
-        if (documentSnapshot.get('role') == "resident" &&
+        } else if (documentSnapshot.get('role') == "resident" &&
             documentSnapshot.get('verified') == "yes") {
           Navigator.pushReplacement(
             context,
@@ -259,16 +259,27 @@ class _LoginState extends State<Login> {
               builder: (context) => Resident(),
             ),
           );
-        } else {
-          return 'Please Verify Your Email First';
+        } else if (documentSnapshot.get('verified') == "no") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Please Verify Your Email First')),
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => EmailVerificationScreen(),
+            ),
+          );
         }
       } else {
-        print('Document does not exist on the database');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+              content: Text('Document does not exist on the database')),
+        );
       }
     });
   }
 
-  void signIn(String email, String password) async {
+  void signIn(String email, String password ) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.signInWithEmailAndPassword(
